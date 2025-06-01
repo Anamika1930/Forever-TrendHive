@@ -30,7 +30,7 @@ const placeOrder = async (req, res) => {
       address,
       amount,
       paymentMethod: "COD",
-      payment: false,
+      payment: true,
       date: Date.now(),
     };
 
@@ -171,7 +171,8 @@ const placeOrderRazorpay = async (req, res) => {
 // Verify Razorpay Payment
 const verifyRazorpay = async (req, res) => {
   try {
-    const { userId, razorpay_order_id } = req.body;
+    const { razorpay_order_id } = req.body;
+    const userId = req.userId;
 
     if (!userId || !razorpay_order_id) {
       return res.status(400).json({ success: false, message: "Invalid input data." });
@@ -205,7 +206,7 @@ const allOrders = async (req, res) => {
 // User Order Data For Frontend
 const userOrders = async (req, res) => {
   try {
-    const userId = req.user._id; // Assuming authUser middleware attaches `req.user`
+    const userId = req.userId; // Assuming authUser middleware attaches `req.user`
     const orders = await orderModel.find({ userId });
     res.json({ success: true, orders });
   } catch (error) {
@@ -221,7 +222,16 @@ const updateStatus = async (req, res) => {
     if (!orderId || !status) {
       return res.status(400).json({ success: false, message: "Invalid input data." });
     }
-    await orderModel.findByIdAndUpdate(orderId, { status });
+
+    // Prepare update object
+    const updateData = { status };
+
+    // If order is delivered, also update payment status to true
+    if (status === "Delivered") {
+      updateData.payment = true;
+    }
+
+    await orderModel.findByIdAndUpdate(orderId, updateData);
     res.json({ success: true, message: "Status Updated Successfully" });
   } catch (error) {
     console.error("Updating Order Status Error:", error);

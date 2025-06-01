@@ -1,4 +1,4 @@
-# MERN Stack Website Forever TrendHive Project
+# MERN Stack Website Bazario TrendHive Project
 
 ## Table of Contents
 
@@ -15,7 +15,7 @@
 
 ## Introduction
 
-This project is a **Forever TrendHive** built using the **MERN Stack** (MongoDB, Express.js, React.js, Node.js). The website allows users to explore products, filter and sort items, select product variants (like size), add items to the cart, and place orders using either **Cash on Delivery** or online payment methods (**Stripe** and **Razorpay**). Additionally, the project includes an admin dashboard for managing products and orders.
+This project is a **Bazario TrendHive** built using the **MERN Stack** (MongoDB, Express.js, React.js, Node.js). The website allows users to explore products, filter and sort items, select product variants (like size), add items to the cart, and place orders using either **Cash on Delivery** or online payment methods (**Stripe** and **Razorpay**). Additionally, the project includes an admin dashboard for managing products and orders.
 
 The project is fully deployed on **Vercel**, ensuring easy accessibility and scalability.
 
